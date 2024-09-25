@@ -20,3 +20,14 @@ Goal is to create a JS tic tac toe game.
 
 ## Development Notes
 
+Gameboard is a 3x3 array
+Players are 'x' or 'o'.
+Players take turns inserting the piece onto the board.
+
+After every move, game should check for a gameover condition:
+1) If the player has 3 in a row/diagonal, they win.
+2) Otherwise, if the board is full, it's a tie.
+
+Game starts with initializing the gameboard as an empty array.
+
+Start out with creating the gameboard object.
