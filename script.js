@@ -95,7 +95,8 @@ function Gameboard() {
 
 // Square
 function Square() {
-  let value = 0;
+  // let value = 0;
+  let value = Math.floor(Math.random() * 3);
 
   const setValue = (player) => {
     value = player;
@@ -170,8 +171,26 @@ function GameController(playerOne = "Player 1", playerTwo = "Player 2") {
   return { getActivePlayer, playRound };
 }
 
-const game = GameController();
+// Next, build the updateScreen function
+function ScreenController() {
 
+  /**
+   * Clear the current board display
+   * Get updated board from game controller
+   * Get updated active player
+   * Render player's turn in .turn
+   * Render each grid square
+   */
+
+  const updateScreen = () => {
+    const cell = document.querySelector('[data-row="0"]')
+  };
+
+  return { updateScreen };
+}
+
+const game = ScreenController();
+game.updateScreen();
 // Test win
 // game.playRound(0,2);
 // game.playRound(1,0);
