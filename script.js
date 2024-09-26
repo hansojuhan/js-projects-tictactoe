@@ -84,8 +84,13 @@ function Gameboard() {
     return false;
   }
 
+  // Checks if board still includes 0. If not, it's a tie.
+  const checkTie = () => {
+    return board.every(row => row.every(square => square.getValue() !== 0));
+  }
+
   // Provide interface
-  return { getBoard, printBoard, markSquare, checkWin };
+  return { getBoard, printBoard, markSquare, checkWin, checkTie };
 }
 
 // Square
@@ -140,14 +145,19 @@ function GameController(playerOne = "Player 1", playerTwo = "Player 2") {
 
     // Mark the square. If valid move, returns true.
     if (board.markSquare(row, column, getActivePlayer().value)) {
-
-      // Win logic here
-      if (board.checkWin(getActivePlayer().value)) {
-        console.log("winner");
-      }
-
       // Switch active player
       switchPlayerTurn();
+    }
+
+    // Win logic here
+    if (board.checkWin(getActivePlayer().value)) {
+      console.log("winner");
+      return;
+    }
+    
+    if (board.checkTie()) {
+      console.log("Tie! Game over!");
+      return;
     }
 
     // Next round
@@ -162,8 +172,26 @@ function GameController(playerOne = "Player 1", playerTwo = "Player 2") {
 
 const game = GameController();
 
-game.playRound(0,2);
-game.playRound(1,0);
-game.playRound(1,1);
-game.playRound(1,2);
-game.playRound(2,0);
+// Test win
+// game.playRound(0,2);
+// game.playRound(1,0);
+// game.playRound(1,1);
+// game.playRound(1,2);
+// game.playRound(2,0);
+
+/*
+1 2 2
+2 1 1
+1 1 2
+*/
+// Test tie
+// game.playRound(0,0);
+//   game.playRound(0,1);
+// game.playRound(1,1);
+//   game.playRound(0,2);
+// game.playRound(1,2);
+//   game.playRound(1,0);
+// game.playRound(2,0);
+//   game.playRound(2,2);
+// game.playRound(2,1);
+
