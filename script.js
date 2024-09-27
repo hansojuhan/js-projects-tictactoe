@@ -4,7 +4,8 @@ let game;
 window.onload = function() {
   
   game = GameController();
-
+  ScreenController.updateScreen();
+  
   // Loop for adding event listeners for all cells
   document.querySelectorAll('button').forEach(button => {
     
@@ -182,6 +183,7 @@ function GameController(playerOne = "Player 1", playerTwo = "Player 2") {
         return;
       }
       
+      // Tie logic
       if (board.checkTie()) {
         console.log("Tie! Game over!");
         return;
@@ -218,6 +220,7 @@ const ScreenController = {
     const updatedBoard = game.getBoard();
     console.log(updatedBoard);
     
+    // Update gameboard
     document.querySelectorAll('button').forEach( button => { 
       
       // Clear current board display
@@ -234,6 +237,12 @@ const ScreenController = {
         button.innerHTML = newValue;
       }
     });
+
+    // Update active player
+    const updatedActivePlayer = game.getActivePlayer();
+    const activePlayerSpan = document.querySelector('#active-player');
+    console.log(activePlayerSpan);
+    activePlayerSpan.innerHTML = updatedActivePlayer.name;
   }
 };
 
