@@ -14,7 +14,7 @@ body {
   margin: auto;
   margin-top: 2rem;
   padding-bottom: 2rem;
-  
+
   border-radius: 2rem;
 
   height: auto;
@@ -46,8 +46,8 @@ h1 {
 
   gap: 1rem;
 
-  height: 70%;
-  width: 70%;
+  height: 50vh;
+  width: 50vh;
 }
 
 .cell {

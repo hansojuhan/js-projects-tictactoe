@@ -1,3 +1,25 @@
+let game;
+
+// Set up button event listeners
+window.onload = function() {
+  
+  game = GameController();
+
+  // Loop for adding event listeners for all cells
+  document.querySelectorAll('button').forEach(button => {
+    
+    button.addEventListener('click', function() {
+
+      const row = button.getAttribute('data-row');
+      const column = button.getAttribute('data-column');
+      game.playRound(row, column);
+
+      ScreenController.updateScreen();
+    });
+  });
+
+}
+
 // Gameboard object
 function Gameboard() {
   const rows = 3;
@@ -95,8 +117,8 @@ function Gameboard() {
 
 // Square
 function Square() {
-  // let value = 0;
-  let value = Math.floor(Math.random() * 3);
+  let value = 0;
+  // let value = Math.floor(Math.random() * 3);
 
   const setValue = (player) => {
     value = player;
@@ -139,6 +161,11 @@ function GameController(playerOne = "Player 1", playerTwo = "Player 2") {
     console.log(`${getActivePlayer().name}'s turn.`)
   };
 
+  // Get new board
+  const getBoard = () => {
+    return board.getBoard();
+  };
+
   const playRound = (row, column) => {
 
     // Mark a square for the current player
@@ -168,11 +195,11 @@ function GameController(playerOne = "Player 1", playerTwo = "Player 2") {
   // Initial round
   printNewRound();
 
-  return { getActivePlayer, playRound };
+  return { getActivePlayer, getBoard, playRound };
 }
 
-// Next, build the updateScreen function
-function ScreenController() {
+// Control the screen
+const ScreenController = {
 
   /**
    * Clear the current board display
@@ -181,16 +208,35 @@ function ScreenController() {
    * Render player's turn in .turn
    * Render each grid square
    */
+  updateScreen: function() {
 
-  const updateScreen = () => {
-    const cell = document.querySelector('[data-row="0"]')
-  };
+    // Get updated board from game
+    const updatedBoard = game.getBoard();
+    console.log(updatedBoard);
+    
+    document.querySelectorAll('button').forEach( button => { 
+      
+      // Clear current board display
+      button.innerHTML = ''; 
+    
+      // Get the button value from the updated board
+      const row = button.getAttribute('data-row');
+      const column = button.getAttribute('data-column');
+      const newValue = updatedBoard[row][column].getValue();
 
-  return { updateScreen };
-}
+      if (newValue == 0) {
+        button.innerHTML = '';
+      } else {
+        button.innerHTML = newValue;
+      }
+    });
+  }
+};
 
-const game = ScreenController();
-game.updateScreen();
+
+// const game = ScreenController();
+// game.updateScreen();
+
 // Test win
 // game.playRound(0,2);
 // game.playRound(1,0);
