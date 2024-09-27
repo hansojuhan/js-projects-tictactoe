@@ -71,6 +71,8 @@ function Gameboard() {
 
   // Check if player has won
   const checkWin = (player) => {
+    console.log("Win Check!");
+    
     // Iterate through rows
     for (let i = 0; i < rows; i++) {
       // Check if all is equal
@@ -173,20 +175,22 @@ function GameController(playerOne = "Player 1", playerTwo = "Player 2") {
 
     // Mark the square. If valid move, returns true.
     if (board.markSquare(row, column, getActivePlayer().value)) {
+
+      // Win logic here
+      if (board.checkWin(getActivePlayer().value)) {
+        console.log("winner");
+        return;
+      }
+      
+      if (board.checkTie()) {
+        console.log("Tie! Game over!");
+        return;
+      }
+
       // Switch active player
       switchPlayerTurn();
     }
 
-    // Win logic here
-    if (board.checkWin(getActivePlayer().value)) {
-      console.log("winner");
-      return;
-    }
-    
-    if (board.checkTie()) {
-      console.log("Tie! Game over!");
-      return;
-    }
 
     // Next round
     printNewRound();
