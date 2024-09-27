@@ -72,8 +72,6 @@ function Gameboard() {
 
   // Check if player has won
   const checkWin = (player) => {
-    console.log("Win Check!");
-    
     // Iterate through rows
     for (let i = 0; i < rows; i++) {
       // Check if all is equal
@@ -158,28 +156,45 @@ function GameController(playerOne = "Player 1", playerTwo = "Player 2") {
     activePlayer = activePlayer === players[0] ? players[1] : players[0];
   }
 
-  // Next round
+  // Print in console new round
   const printNewRound = () => {
     board.printBoard();
     console.log(`${getActivePlayer().name}'s turn.`)
   };
 
-  // Get new board
+  // Get updated board info
   const getBoard = () => {
     return board.getBoard();
   };
 
+  const isGameOver = () => {
+    
+    const playerOneWon = board.checkWin(players[0].value);
+    console.log(playerOneWon);
+    
+    const playerOneTwo = board.checkWin(players[1].value);
+    console.log(playerOneTwo);
+
+    const tie = board.checkTie();
+    console.log(tie);
+    
+  };
+
+  // Main game round flow
   const playRound = (row, column) => {
 
-    // Mark a square for the current player
-    console.log(`Making ${getActivePlayer().name}'s tic in row ${row} column ${column}...`);
+    // Check if game is already over. If yes, there's no move
+    // if (isGameOver()) { return; }
 
     // Mark the square. If valid move, returns true.
     if (board.markSquare(row, column, getActivePlayer().value)) {
 
+      // Mark a square for the current player
+      console.log(`Making ${getActivePlayer().name}'s tic in row ${row} column ${column}...`);
+
       // Win logic here
       if (board.checkWin(getActivePlayer().value)) {
-        console.log("winner");
+        console.log("Winner");
         return;
       }
       
@@ -195,30 +210,29 @@ function GameController(playerOne = "Player 1", playerTwo = "Player 2") {
 
 
     // Next round
-    printNewRound();
+    // printNewRound();
   }
 
-  // Initial round
-  printNewRound();
+  // Initial round (console mode)
+  // printNewRound();
 
   return { getActivePlayer, getBoard, playRound };
 }
 
 // Control the screen
 const ScreenController = {
-
   /**
-   * Clear the current board display
+   * Updates everything on the screen based on updated info.
+   * 
    * Get updated board from game controller
-   * Get updated active player
-   * Render player's turn in .turn
+   * Clear the current board display
    * Render each grid square
+   * Get updated active player
    */
   updateScreen: function() {
 
     // Get updated board from game
     const updatedBoard = game.getBoard();
-    console.log(updatedBoard);
     
     // Update gameboard
     document.querySelectorAll('button').forEach( button => { 
@@ -241,35 +255,6 @@ const ScreenController = {
     // Update active player
     const updatedActivePlayer = game.getActivePlayer();
     const activePlayerSpan = document.querySelector('#active-player');
-    console.log(activePlayerSpan);
     activePlayerSpan.innerHTML = updatedActivePlayer.name;
   }
 };
-
-
-// const game = ScreenController();
-// game.updateScreen();
-
-// Test win
-// game.playRound(0,2);
-// game.playRound(1,0);
-// game.playRound(1,1);
-// game.playRound(1,2);
-// game.playRound(2,0);
-
-/*
-1 2 2
-2 1 1
-1 1 2
-*/
-// Test tie
-// game.playRound(0,0);
-//   game.playRound(0,1);
-// game.playRound(1,1);
-//   game.playRound(0,2);
-// game.playRound(1,2);
-//   game.playRound(1,0);
-// game.playRound(2,0);
-//   game.playRound(2,2);
-// game.playRound(2,1);
-
