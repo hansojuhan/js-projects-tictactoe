@@ -139,11 +139,11 @@ function GameController(playerOne = "Player 1", playerTwo = "Player 2") {
   const players = [
     {
       name: playerOne,
-      value: 1
+      value: 'X'
     },
     {
       name: playerTwo,
-      value: 2
+      value: 'O'
     }
   ];
 
