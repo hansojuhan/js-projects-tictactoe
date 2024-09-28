@@ -170,21 +170,22 @@ function GameController(playerOne = "Player 1", playerTwo = "Player 2") {
   const isGameOver = () => {
     
     const playerOneWon = board.checkWin(players[0].value);
-    console.log(playerOneWon);
     
-    const playerOneTwo = board.checkWin(players[1].value);
-    console.log(playerOneTwo);
+    const playerTwoWon = board.checkWin(players[1].value);
 
     const tie = board.checkTie();
-    console.log(tie);
+    console.log(playerOneWon || playerTwoWon || tie);
     
+    return playerOneWon || playerTwoWon || tie;
   };
 
   // Main game round flow
   const playRound = (row, column) => {
 
     // Check if game is already over. If yes, there's no move
-    // if (isGameOver()) { return; }
+    if (isGameOver()) {
+      return;
+    };
 
     // Mark the square. If valid move, returns true.
     if (board.markSquare(row, column, getActivePlayer().value)) {
