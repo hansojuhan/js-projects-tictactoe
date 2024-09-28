@@ -167,23 +167,32 @@ function GameController(playerOne = "Player 1", playerTwo = "Player 2") {
     return board.getBoard();
   };
 
+  // Check if either player won or it's a tie
+  // For a win, returns 1
+  // For tie, returns 2
+  // If game is not over, returns 0
   const isGameOver = () => {
-    
     const playerOneWon = board.checkWin(players[0].value);
-    
     const playerTwoWon = board.checkWin(players[1].value);
-
     const tie = board.checkTie();
+
     console.log(playerOneWon || playerTwoWon || tie);
     
-    return playerOneWon || playerTwoWon || tie;
+    if (playerOneWon || playerTwoWon) {
+      return 1;
+    } else if (tie) {
+      return 2;
+    } else {
+      return 0;
+    }
   };
 
   // Main game round flow
   const playRound = (row, column) => {
 
     // Check if game is already over. If yes, there's no move
-    if (isGameOver()) {
+    if (isGameOver() != 0) {
+      console.log("Game already over.");
       return;
     };
 
@@ -193,20 +202,17 @@ function GameController(playerOne = "Player 1", playerTwo = "Player 2") {
       // Mark a square for the current player
       console.log(`Making ${getActivePlayer().name}'s tic in row ${row} column ${column}...`);
 
-      // Win logic here
-      if (board.checkWin(getActivePlayer().value)) {
-        console.log("Winner");
-        return;
-      }
-      
-      // Tie logic
-      if (board.checkTie()) {
-        console.log("Tie! Game over!");
+      if (isGameOver() != 0) {
+        // If game over, update the screen and return
+        ScreenController.updateScreen();
         return;
       }
 
-      // Switch active player
+      // Switch active player if game isn't over
       switchPlayerTurn();
+
+    } else {
+      console.log("Invalid move!");
     }
 
 
@@ -217,7 +223,7 @@ function GameController(playerOne = "Player 1", playerTwo = "Player 2") {
   // Initial round (console mode)
   // printNewRound();
 
-  return { getActivePlayer, getBoard, playRound };
+  return { getActivePlayer, getBoard, isGameOver, playRound };
 }
 
 // Control the screen
@@ -256,6 +262,13 @@ const ScreenController = {
     // Update active player
     const updatedActivePlayer = game.getActivePlayer();
     const activePlayerSpan = document.querySelector('#active-player');
-    activePlayerSpan.innerHTML = updatedActivePlayer.name;
+
+    if (game.isGameOver() == 0) {
+      activePlayerSpan.innerHTML = `It's ${updatedActivePlayer.name}'s turn.`;
+    } else if (game.isGameOver() == 1) {
+      activePlayerSpan.innerHTML = `Game over! ${updatedActivePlayer.name} won!`;
+    } else if (game.isGameOver() == 2) {
+      activePlayerSpan.innerHTML = `Game over! It's a tie!`;
+    } 
   }
 };
