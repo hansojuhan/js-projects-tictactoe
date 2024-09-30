@@ -80,3 +80,43 @@ h1 {
   -ms-user-select: none;
   user-select: none;
 }
+
+/* Modal */
+#start-game {
+  border-radius: 1rem;
+  box-shadow: 2px 2px 2px gray;
+
+  height: 45vh;
+  width: 45vh;
+
+  display: flex;
+  justify-content: center;
+
+  font-size: 2rem;
+}
+
+#start-game form div {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+
+  width: 100%;
+}
+
+#start-game form label {
+  font-size: 1.25rem;
+}
+
+#start-game form input {
+  padding: 1rem 2rem;
+}
+
+#start-game form button {
+  width: 100%;
+  padding: 1rem 2rem;
+  background-color: rgb(155, 155, 247);
+}
+
+#start-game form button:hover {
+  background-color: rgb(217, 217, 251);
+}

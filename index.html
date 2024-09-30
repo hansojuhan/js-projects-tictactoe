@@ -10,6 +10,7 @@
 </head>
 <body class="unselectable">
   
+    <!-- Info -->
     <div class="info">
       <h1>Tic Tac Toe</h1>
       <h2 id="active-player" >It's <span>player</span>'s turn.</h2>
@@ -27,6 +28,25 @@
       <div class="cell"><button data-row="2" data-column="2"></button></div>
     </div>
 
+    <!-- Start modal -->
+    <dialog id="start-game">
+      <form>
+        <h2>Start the game</h2>
+        <div>
+          <label for="player-1-name">Player 1 name</label>
+          <input name="player-1-name" type="text" placeholder="Player 1" autofocus>
+        </div>
+
+        <div>
+          <label for="player-2-name">Player 2 name</label>
+          <input name="player-2-name" type="text" placeholder="Player 2" autofocus>
+        </div>
+
+        <button id="start-game-button" type="button">Start!</button>
+      </form>
+    </dialog>
+
+    <!-- Javascript -->
     <script src="script.js"></script>
 
 </body>

@@ -3,11 +3,11 @@ let game;
 // Set up button event listeners
 window.onload = function() {
   
-  game = GameController();
-  ScreenController.updateScreen();
+  // game = GameController();
+  // ScreenController.updateScreen();
   
   // Loop for adding event listeners for all cells
-  document.querySelectorAll('button').forEach(button => {
+  document.querySelectorAll('.cell button').forEach(button => {
     
     button.addEventListener('click', function() {
 
@@ -19,6 +19,38 @@ window.onload = function() {
     });
   });
 
+  const startGameButton = document.getElementById('start-game-button'); 
+  startGameButton.addEventListener('click', startGameClick, false);
+  
+  const startGameModal = document.getElementById('start-game');
+  startGameModal.showModal();
+}
+
+function startGameClick(event) {
+  // Prevent default form submission  
+  event.preventDefault();
+
+  // Select the form in order to validate the fields
+  const form = document.querySelector('form');
+  if (!form.checkValidity()) {
+    form.reportValidity();
+    return;
+  }
+
+  // Get names
+  const name1 = document.querySelector('input[name="player-1-name"]').value;
+  const name2 = document.querySelector('input[name="player-2-name"]').value;
+
+  // Start a new game
+  game = new GameController(name1, name2);
+
+  // Close modal
+  const startGameModal = document.getElementById('start-game');
+  startGameModal.close();
+  startGameModal.removeAttribute('open'); // Manually hide modal
+
+  // Refresh screen
+  ScreenController.updateScreen();
 }
 
 // Gameboard object
@@ -242,7 +274,7 @@ const ScreenController = {
     const updatedBoard = game.getBoard();
     
     // Update gameboard
-    document.querySelectorAll('button').forEach( button => { 
+    document.querySelectorAll('.cell button').forEach( button => { 
       
       // Clear current board display
       button.innerHTML = ''; 
