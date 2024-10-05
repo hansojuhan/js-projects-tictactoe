@@ -1,11 +1,10 @@
+const startGameModal = document.querySelector('dialog#start-game');
+
 let game;
 
-// Set up button event listeners
+// On window load, set up button event listeners and bring up the start modal
 window.onload = function() {
-  
-  // game = GameController();
-  // ScreenController.updateScreen();
-  
+
   // Loop for adding event listeners for all cells
   document.querySelectorAll('.cell button').forEach(button => {
     
@@ -18,15 +17,31 @@ window.onload = function() {
       ScreenController.updateScreen();
     });
   });
+  
+  // Bring up start game modal
+  // const startGameModal = document.getElementById('start-game');
+  startGameModal.showModal();
 
+  // Connect start button
   const startGameButton = document.getElementById('start-game-button'); 
   startGameButton.addEventListener('click', startGameClick, false);
-  
-  const startGameModal = document.getElementById('start-game');
+
+  // Connect new game button
+  const newGameButton = document.getElementById('new-game-button');
+  newGameButton.addEventListener('click', newGameClick, false);
+}
+
+function newGameClick(event) {
+  // Bring up modal
   startGameModal.showModal();
 }
 
+// Starts the game by taking player names, initiating a new game, 
+// closing modal and refreshing the screen
 function startGameClick(event) {
+  console.log("start game click");
+  
+
   // Prevent default form submission  
   event.preventDefault();
 
@@ -38,16 +53,17 @@ function startGameClick(event) {
   }
 
   // Get names
-  const name1 = document.querySelector('input[name="player-1-name"]').value;
-  const name2 = document.querySelector('input[name="player-2-name"]').value;
+  const name1 = document.querySelector('input[name="player-1-name"]').value.trim();
+  const name2 = document.querySelector('input[name="player-2-name"]').value.trim();
 
   // Start a new game
   game = new GameController(name1, name2);
 
   // Close modal
-  const startGameModal = document.getElementById('start-game');
+  // const startGameModal = document.getElementById('start-game');
+  // const startGameModal = document.querySelector('dialog#start-game');
   startGameModal.close();
-  startGameModal.removeAttribute('open'); // Manually hide modal
+  // startGameModal.removeAttribute('open'); // Manually hide modal
 
   // Refresh screen
   ScreenController.updateScreen();
@@ -208,7 +224,7 @@ function GameController(playerOne = "Player 1", playerTwo = "Player 2") {
     const playerTwoWon = board.checkWin(players[1].value);
     const tie = board.checkTie();
 
-    console.log(playerOneWon || playerTwoWon || tie);
+    // console.log(playerOneWon || playerTwoWon || tie);
     
     if (playerOneWon || playerTwoWon) {
       return 1;
@@ -262,7 +278,7 @@ function GameController(playerOne = "Player 1", playerTwo = "Player 2") {
 const ScreenController = {
   /**
    * Updates everything on the screen based on updated info.
-   * 
+   *  
    * Get updated board from game controller
    * Clear the current board display
    * Render each grid square

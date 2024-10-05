@@ -9,45 +9,52 @@
   <title>Tic Tac Toe</title>
 </head>
 <body class="unselectable">
+
   
-    <!-- Info -->
-    <div class="info">
-      <h1>Tic Tac Toe</h1>
-      <h2 id="active-player" >It's <span>player</span>'s turn.</h2>
+  <!-- Start modal -->
+  <dialog id="start-game">
+    <form>
+      <h2>Start the game</h2>
+      <div>
+        <label for="player-1-name">Player 1 name</label>
+        <input name="player-1-name" type="text" placeholder="Player 1" autofocus required>
+      </div>
+
+      <div>
+        <label for="player-2-name">Player 2 name</label>
+        <input name="player-2-name" type="text" placeholder="Player 2" required>
+      </div>
+
+      <button id="start-game-button" type="button">Start!</button>
+    </form>
+  </dialog>
+
+  <div class="game-and-button">
+    <button id="new-game-button" type="button">New game</button>
+
+    <div class="game-container">
+      <!-- Info -->
+      <div class="info">
+        <h1>Tic Tac Toe</h1>
+        <h2 id="active-player" >It's <span>player</span>'s turn.</h2>
+      </div>
+      <!-- Main tictactoe grid -->
+      <div class="grid ">
+        <div class="cell"><button data-row="0" data-column="0"></button></div>
+        <div class="cell"><button data-row="0" data-column="1"></button></div>
+        <div class="cell"><button data-row="0" data-column="2"></button></div>
+        <div class="cell"><button data-row="1" data-column="0"></button></div>
+        <div class="cell"><button data-row="1" data-column="1"></button></div>
+        <div class="cell"><button data-row="1" data-column="2"></button></div>
+        <div class="cell"><button data-row="2" data-column="0"></button></div>
+        <div class="cell"><button data-row="2" data-column="1"></button></div>
+        <div class="cell"><button data-row="2" data-column="2"></button></div>
+      </div>
     </div>
-    <!-- Main tictactoe grid -->
-    <div class="grid ">
-      <div class="cell"><button data-row="0" data-column="0"></button></div>
-      <div class="cell"><button data-row="0" data-column="1"></button></div>
-      <div class="cell"><button data-row="0" data-column="2"></button></div>
-      <div class="cell"><button data-row="1" data-column="0"></button></div>
-      <div class="cell"><button data-row="1" data-column="1"></button></div>
-      <div class="cell"><button data-row="1" data-column="2"></button></div>
-      <div class="cell"><button data-row="2" data-column="0"></button></div>
-      <div class="cell"><button data-row="2" data-column="1"></button></div>
-      <div class="cell"><button data-row="2" data-column="2"></button></div>
-    </div>
+  </div>
 
-    <!-- Start modal -->
-    <dialog id="start-game">
-      <form>
-        <h2>Start the game</h2>
-        <div>
-          <label for="player-1-name">Player 1 name</label>
-          <input name="player-1-name" type="text" placeholder="Player 1" autofocus>
-        </div>
-
-        <div>
-          <label for="player-2-name">Player 2 name</label>
-          <input name="player-2-name" type="text" placeholder="Player 2" autofocus>
-        </div>
-
-        <button id="start-game-button" type="button">Start!</button>
-      </form>
-    </dialog>
-
-    <!-- Javascript -->
-    <script src="script.js"></script>
+  <!-- Javascript -->
+  <script src="script.js"></script>
 
 </body>
 </html>
